@@ -1,1 +1,12 @@
-# aoc-2024
+# Advent of Code 2024
+My first time attempting the Advent of Code, starting with the 2024 edition. Solved each problem with a mix of programming languages I am familiar with.  
+* Day 1: Python
+    * My first AOC problem
+    * If anything, perhaps it would have been better to not destroy my list parameters
+* Day 2: Java
+    * Had a hard time initially trying to only use arrays
+    * Java's verbosity also does not make it ideal for these problems
+* Day 3: Python
+    * For this solution I challenged myself to make a maximally unreadable solution
+    * This posed a new challenge trying to debug a one-line program with no variables
+* Day ...
