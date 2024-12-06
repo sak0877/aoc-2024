@@ -3,73 +3,51 @@ import java.util.*;
 
 class Main {
 
-    public static int swapDiff(int num1, int num2) {
-        System.out.print(num1 + " - " + num2);
-        if (num1 < num2) {
-            int tmp = num1;
-            num1 = num2;
-            num2 = tmp;
-        }
-        System.out.println(" = " + (num1 - num2));
-        return num1 - num2;
-    }
+	public static boolean isSafe(ArrayList<Integer> levels) {
+		boolean increasing = levels.get(0) < levels.get(1);
+		for (int i = 0; i < levels.size() - 1; i++) {
+			int current = levels.get(i);
+			int next = levels.get(i + 1);
+			int difference = Math.abs(current - next);
+			if ((difference > 3) || (increasing && current > next) ||
+				(!increasing && current < next) || (current == next)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-    public static boolean unsafeDistance(int num1, int num2, int num3) {
-        return ((swapDiff(num2, num1) > 3) || (swapDiff(num2, num3) > 3) ||
-                (swapDiff(num2, num1) < 1) || (swapDiff(num2, num3) > 3));
-    }
+	public static boolean checkSafetyWithDampener(ArrayList<Integer> levels) {
+		if (isSafe(levels)) return true;
+		for (int i = 0; i < levels.size(); i++) {
+			ArrayList<Integer> levelsCopy = new ArrayList<>(levels);
+			levelsCopy.remove(i);
+			if (isSafe(levelsCopy)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    public static int part1(int[][] report) {
-        int safeCount = 0;
-        boolean levelSafe;
-        for (int i = 0; i < report.length; i++) {
-            levelSafe = true;
-            for (int j = 1; j < report[i].length - 1; j++) {
-                if (unsafeDistance(report[i][j-1], report[i][j], report[i][j+1]) ||
-                    (report[i][j-1] > report[i][j]) && (report[i][j] < report[i][j+1]) ||
-                    (report[i][j-1] < report[i][j]) && (report[i][j] > report[i][j+1]) ||
-                    (report[i][j] == report[i][j+1])) {
-                    levelSafe = false;
-                }
-            }
-            System.out.println(levelSafe);
-            if (levelSafe) {
-                safeCount++;
-            }
-        }
-        return safeCount;
-    }
-
-    // TODO: Part 2
-
-    public static void main(String[] args) {
-        ArrayList<int[]> reportList = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("2.in"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] values = line.split(" ");
-                int[] row = new int[values.length];
-                for (int i = 0; i < values.length; i++) {
-                    row[i] = Integer.parseInt(values[i]);
-                }
-                reportList.add(row);
-            }
-            reader.close();
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-
-        int[][] report = new int[reportList.size()][];
-        for (int i = 0; i < reportList.size(); i++) {
-            report[i] = reportList.get(i);
-        }
-
-        // Print the report
-        for (int[] row : report) {
-            System.out.println(Arrays.toString(row));
-        }
-
-        System.out.println(part1(report));
-    }
+	public static void main (String[] args) {
+		int safeCount = 0;
+		try {
+			Scanner scanner = new Scanner(new File("1.in"));
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				String[] levelArr = line.split(" ");
+				ArrayList<Integer> levels = new ArrayList<>();
+				for (int i = 0; i < levelArr.length; i++) {
+					levels.add(Integer.parseInt(levelArr[i]));
+				}
+				if (checkSafetyWithDampener(levels)) {
+					safeCount++;
+				}
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			System.err.println(e);
+		}
+		System.out.println(safeCount);
+	}
 }
