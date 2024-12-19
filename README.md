@@ -9,4 +9,7 @@ My first time attempting the Advent of Code, starting with the 2024 edition. Sol
 * Day 3: Python
     * For this solution I challenged myself to make a maximally unreadable solution
     * This posed a new challenge trying to debug a one-line program with no variables
-* Day ...
+* Day 4: Kotlin
+    * I wanted to do this one in Kotlin for a change 
+    * Getting all the diagonals of the input matrix for Part 1 was quite a challenge
+    * Kotlin's nice features like when statements were useful here
