@@ -85,17 +85,6 @@ fun countXmas(searchStr: String): Int {
     }
 }
 
-fun ArrayList<String>.flip(): ArrayList<String> {
-    val flipped = ArrayList<String>(this)
-    for ((i, j) in (this.size - 1 downTo 0).withIndex()) {
-        flipped[i] = this[j]
-    }
-    ReadInput.printInput(this)
-    println()
-    ReadInput.printInput(flipped)
-    return flipped
-}
-
 fun ArrayList<String>.countXmasShape(): Int {
     val rowSize = this.size
     val colSize = this[0].length
